@@ -43,6 +43,9 @@ def checkGuess(turns, word, userGuess, window):
 def main():
     file = open("wordList.txt", "r")
     wordList = file.readlines()
+    for i in range(len(wordList) - 1):
+        wordList[i] = wordList[i][:-1]
+
     word = wordList[random.randint(0, len(wordList) - 1)].upper()
 
     height = 600
@@ -88,10 +91,13 @@ def main():
                     guess += event.unicode.upper()
 
                 if event.key == pygame.K_RETURN and len(guess) == 5:
-                    win = checkGuess(turns, word, guess, window)
-                    turns += 1
-                    guess = ""
-                    window.fill(black, (0, 500, 500, 200))
+                    if guess.lower() not in wordList:
+                        print("Not in word list")
+                    else:
+                        win = checkGuess(turns, word, guess, window)
+                        turns += 1
+                        guess = ""
+                        window.fill(black, (0, 500, 500, 200))
 
         window.fill(black, (0, 500, 500, 200))
         renderGuess = font.render(guess, True, grey)
@@ -118,3 +124,4 @@ main()
 # Find out way to deal with double letters
 # Get way to see/copy results
 # Show/update keyboard as you guess
+# Make UI look better after win/loss
