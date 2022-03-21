@@ -23,12 +23,22 @@ def checkGuess(turns, word, userGuess, window):
     spacing = 0
     guessColorCode = [grey,grey,grey,grey,grey]
 
+    tempWord = userGuess
+
     for i in range(5):
         if userGuess[i] in word:
-            guessColorCode[i] = yellow
-        
-        if userGuess[i] == word[i]:
-            guessColorCode[i] = green
+            if tempWord.count(userGuess[i]) < word.count(userGuess[i]):
+                if userGuess[i] == word[i]:
+                    guessColorCode[i] = green
+                else:
+                    guessColorCode[i] = yellow
+            if tempWord.count(userGuess[i]) == word.count(userGuess[i]):
+                if userGuess[i] == word[i]:
+                    guessColorCode[i] = green
+                else:
+                    guessColorCode[i] = yellow
+            elif tempWord.count(userGuess[i]) > word.count(userGuess[i]):
+                tempWord = tempWord[:i] + "." + tempWord[i+1:]
 
     list(userGuess)
 
@@ -123,7 +133,6 @@ def main():
 main()
 
 # TODO:
-# Find out way to deal with double letters
 # Get way to see/copy results
 # Show/update keyboard as you guess
 # Make UI look better after win/loss
