@@ -75,6 +75,7 @@ def main():
                 sys.exit()
 
             if event.type == pygame.KEYDOWN:
+                window.fill(black, (0, 0, width, 50))
                 if event.key == pygame.K_RETURN and win == True:
                     main()
                 
@@ -92,7 +93,7 @@ def main():
 
                 if event.key == pygame.K_RETURN and len(guess) == 5:
                     if guess.lower() not in wordList:
-                        print("Not in word list")
+                        window.blit(font.render("Word not in list", True, red), (140, 10))
                     else:
                         win = checkGuess(turns, word, guess, window)
                         turns += 1
@@ -105,7 +106,7 @@ def main():
 
         if win == True:
             window.fill(black)
-            window.blit(youWin, (120, 200))
+            window.blit(youWin, (125, 200))
             window.blit(font.render(f"The word was: {word.strip()}", True, white), (100, 275))
             window.blit(playAgain, (90, 325))
 
@@ -121,6 +122,7 @@ def main():
 main()
 
 # TODO:
+# compare guess to dictionary
 # Find out way to deal with double letters
 # Get way to see/copy results
 # Show/update keyboard as you guess
