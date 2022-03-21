@@ -85,7 +85,19 @@ def checkGuess(turns, word, userGuess, window):
                         if userGuess[i] == bottomRow[l]:
                             keyboardBottomColorCode[l] = yellow
             elif tempWord.count(userGuess[i]) > word.count(userGuess[i]):
-                tempWord = tempWord[:i] + "." + tempWord[i+1:]
+                if userGuess[i] == word[i]:
+                    guessColorCode[i] = green
+                    for j in range(10):
+                        if userGuess[i] == topRow[j]:
+                            keyboardTopColorCode[j] = green
+                    for k in range(9):
+                        if userGuess[i] == middleRow[k]:
+                            keyboardMiddleColorCode[k] = green
+                    for l in range(7):
+                        if userGuess[i] == bottomRow[l]:
+                            keyboardBottomColorCode[l] = green
+                else:
+                    tempWord = tempWord[:i] + "." + tempWord[i+1:]
         else:
             for j in range(10):
                 if userGuess[i] == topRow[j]:
