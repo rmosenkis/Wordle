@@ -4,15 +4,15 @@ from pygame.locals import *
 pygame.init()
 
 white = (255,255,255)
-yellow = (255,255,102)
-green = (0,255,0)
+yellow = (183,193,1)
+green = (0,122,0)
 red = (255,0,0)
-grey = (211,211,211)
+grey = (105,105,105)
 black = (0,0,0)
 lightGreen = (153,255,204)
 
 font = pygame.font.SysFont("Helvetica neue", 40)
-bigFont = pygame.font.SysFont("Helvetica neue", 80)\
+bigFont = pygame.font.SysFont("Helvetica neue", 80)
 
 youWin = bigFont.render("You Win!", True, lightGreen)
 youLose = bigFont.render("You Lose!", True, red)
@@ -43,9 +43,9 @@ def checkGuess(turns, word, userGuess, window):
     list(userGuess)
 
     for i in range(5):
-        renderList[i] = font.render(userGuess[i], True, black)
-        pygame.draw.rect(window, guessColorCode[i], pygame.Rect(60 + spacing, 50 + (turns * 80), 50, 50))
-        window.blit(renderList[i], (70 + spacing, 50 + (turns * 80)))
+        renderList[i] = font.render(userGuess[i], True, white)
+        pygame.draw.rect(window, guessColorCode[i], pygame.Rect(160 + spacing, 50 + (turns * 80), 50, 50))
+        window.blit(renderList[i], (176.5 + spacing, 62 + (turns * 80)))
         spacing += 80
 
     if guessColorCode == [green, green, green, green, green]:
@@ -59,8 +59,8 @@ def main():
 
     word = wordList[random.randint(0, len(wordList) - 1)].upper()
 
-    height = 600
-    width = 500
+    height = 900
+    width = 700
 
     FPS = 30
     clock = pygame.time.Clock()
@@ -72,7 +72,7 @@ def main():
 
     for i in range(5):
         for j in range(6):
-            pygame.draw.rect(window, grey, pygame.Rect(60 + (i * 80), 50 + (j * 80), 50, 50), 2)
+            pygame.draw.rect(window, grey, pygame.Rect(160 + (i * 80), 50 + (j * 80), 50, 50), 2)
 
     pygame.display.set_caption("Wordle!")
 
@@ -104,28 +104,36 @@ def main():
 
                 if event.key == pygame.K_RETURN and len(guess) == 5:
                     if guess.lower() not in words.words():
-                        window.blit(font.render("Word not in list", True, red), (140, 10))
+                        window.blit(font.render("Word not in list", True, red), (240, 10))
                     else:
                         win = checkGuess(turns, word, guess, window)
                         turns += 1
                         guess = ""
-                        window.fill(black, (0, 500, 500, 200))
 
-        window.fill(black, (0, 500, 500, 200))
-        renderGuess = font.render(guess, True, grey)
-        window.blit(renderGuess, (180, 530))
+        renderList = ["","","","",""]
+        spacing = 0
+        userGuess = guess
+        list(userGuess)
+
+        for i in range(5):
+            pygame.draw.rect(window, black, pygame.Rect(162 + (i * 80), 52 + (turns * 80), 46, 46))
+
+        for i in range(len(userGuess)):
+            renderList[i] = font.render(userGuess[i], True, white)
+            window.blit(renderList[i], (176.5 + spacing, 62 + (turns * 80)))
+            spacing += 80
 
         if win == True:
             window.fill(black)
-            window.blit(youWin, (125, 200))
-            window.blit(font.render(f"The word was: {word.strip()}", True, white), (100, 275))
-            window.blit(playAgain, (90, 325))
+            window.blit(youWin, (225, 200))
+            window.blit(font.render(f"The word was: {word.strip()}", True, white), (200, 275))
+            window.blit(playAgain, (190, 325))
 
         if turns == 6 and win != True:
             window.fill(black)
-            window.blit(youLose, (120, 200))
-            window.blit(font.render(f"The word was: {word.strip()}", True, white), (100, 275))
-            window.blit(playAgain, (90, 325))
+            window.blit(youLose, (220, 200))
+            window.blit(font.render(f"The word was: {word.strip()}", True, white), (200, 275))
+            window.blit(playAgain, (190, 325))
         
         pygame.display.update()
         clock.tick(FPS)
