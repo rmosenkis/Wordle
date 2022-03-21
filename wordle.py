@@ -18,7 +18,7 @@ bigFont = pygame.font.SysFont("Helvetica neue", 80)
 
 youWin = bigFont.render("You Win!", True, lightGreen)
 youLose = bigFont.render("You Lose!", True, red)
-playAgain = bigFont.render("Play Again?", True, lightGreen)
+playAgain = bigFont.render("Play Again?", True, white)
 
 keyboardTopColorCode = [lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey]
 keyboardMiddleColorCode = [lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey]
@@ -132,6 +132,33 @@ def checkGuess(turns, word, userGuess, window):
     if guessColorCode == [green, green, green, green, green]:
         return True
 
+def draw_boxes(window):
+    for i in range(5):
+        for j in range(6):
+            pygame.draw.rect(window, grey, pygame.Rect(160 + (i * 80), 50 + (j * 80), 70, 70), 2)
+
+    topRow = "QWERTYUIOP"
+    middleRow = "ASDFGHJKL"
+    bottomRow = "ZXCVBNM"
+
+    # Draw grid of keyboard
+    for i in range(10):
+        pygame.draw.rect(window, lightGrey, pygame.Rect(55 + (i * 60), 600, 50, 60))
+        window.blit(font.render(topRow[i], True, white), (70 + (i * 60), 615))
+    for i in range(9):
+        pygame.draw.rect(window, lightGrey, pygame.Rect(85 + (i * 60), 670, 50, 60))
+        window.blit(font.render(middleRow[i], True, white), (100 + (i * 60), 685))
+    for i in range(7):
+        pygame.draw.rect(window, lightGrey, pygame.Rect(145 + (i * 60), 740, 50, 60))
+        window.blit(font.render(bottomRow[i], True, white), (160 + (i * 60), 755))
+
+def reset_keyboard():
+    global keyboardTopColorCode, keyboardMiddleColorCode, keyboardBottomColorCode
+
+    keyboardTopColorCode = [lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey]
+    keyboardMiddleColorCode = [lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey]
+    keyboardBottomColorCode = [lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey]
+
 def main():
     file = open("wordList.txt", "r")
     wordList = file.readlines()
@@ -152,26 +179,7 @@ def main():
     guess = ""
 
     # Draw grid of empty boxes
-    for i in range(5):
-        for j in range(6):
-            pygame.draw.rect(window, grey, pygame.Rect(160 + (i * 80), 50 + (j * 80), 70, 70), 2)
-
-    global keyboardTopColorCode, keyboardMiddleColorCode, keyboardBottomColorCode
-
-    topRow = "QWERTYUIOP"
-    middleRow = "ASDFGHJKL"
-    bottomRow = "ZXCVBNM"
-
-    # Draw grid of keyboard
-    for i in range(10):
-        pygame.draw.rect(window, lightGrey, pygame.Rect(55 + (i * 60), 600, 50, 60))
-        window.blit(font.render(topRow[i], True, white), (70 + (i * 60), 615))
-    for i in range(9):
-        pygame.draw.rect(window, lightGrey, pygame.Rect(85 + (i * 60), 670, 50, 60))
-        window.blit(font.render(middleRow[i], True, white), (100 + (i * 60), 685))
-    for i in range(7):
-        pygame.draw.rect(window, lightGrey, pygame.Rect(145 + (i * 60), 740, 50, 60))
-        window.blit(font.render(bottomRow[i], True, white), (160 + (i * 60), 755))
+    draw_boxes(window)
     
     pygame.display.set_caption("Wordle!")
 
@@ -228,19 +236,17 @@ def main():
             window.fill(black)
             window.blit(youWin, (225, 200))
             window.blit(font.render(f"The word was: {word.strip()}", True, white), (200, 275))
-            window.blit(playAgain, (190, 325))
-            keyboardTopColorCode = [lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey]
-            keyboardMiddleColorCode = [lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey]
-            keyboardBottomColorCode = [lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey]
+            window.blit(playAgain, (190, 525))
+            window.blit(font.render("(Press Enter)", True, lightGrey), (260, 600))
+            reset_keyboard()
 
         if turns == 6 and win != True:
             window.fill(black)
             window.blit(youLose, (220, 200))
             window.blit(font.render(f"The word was: {word.strip()}", True, white), (200, 275))
-            window.blit(playAgain, (190, 325))
-            keyboardTopColorCode = [lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey]
-            keyboardMiddleColorCode = [lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey]
-            keyboardBottomColorCode = [lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey]
+            window.blit(playAgain, (190, 525))
+            window.blit(font.render("(Press Enter)", True, lightGrey), (260, 600))
+            reset_keyboard()
         
         pygame.display.update()
         clock.tick(FPS)
