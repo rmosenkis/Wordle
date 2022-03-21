@@ -1,4 +1,5 @@
 import random, pygame, sys
+from nltk.corpus import words
 from pygame.locals import *
 pygame.init()
 
@@ -92,7 +93,7 @@ def main():
                     guess += event.unicode.upper()
 
                 if event.key == pygame.K_RETURN and len(guess) == 5:
-                    if guess.lower() not in wordList:
+                    if guess.lower() not in words.words():
                         window.blit(font.render("Word not in list", True, red), (140, 10))
                     else:
                         win = checkGuess(turns, word, guess, window)
@@ -122,7 +123,6 @@ def main():
 main()
 
 # TODO:
-# compare guess to dictionary
 # Find out way to deal with double letters
 # Get way to see/copy results
 # Show/update keyboard as you guess
