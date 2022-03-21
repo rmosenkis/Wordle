@@ -4,11 +4,11 @@ from pygame.locals import *
 pygame.init()
 
 white = (255,255,255)
-yellow = (183,193,1)
-green = (0,122,0)
+yellow = (202,180,92)
+green = (108,172,100)
 red = (255,0,0)
 lightGrey = (160,160,160)
-grey = (75,75,75)
+grey = (62,62,62)
 black = (0,0,0)
 lightGreen = (153,255,204)
 
@@ -247,6 +247,7 @@ def main():
 main()
 
 # TODO:
+# Update colors to match actual wordle
 # Get way to see/copy results
 # Make 6x5 grid closer together with bigger boxes/bigger text
 # Make UI look better after win/loss
