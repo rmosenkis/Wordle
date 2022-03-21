@@ -13,6 +13,7 @@ black = (18,18,19)
 lightGreen = (153,255,204)
 
 font = pygame.font.SysFont("Helvetica neue", 40)
+mediumFont = pygame.font.SysFont("Helvetica neue", 60)
 bigFont = pygame.font.SysFont("Helvetica neue", 80)
 
 youWin = bigFont.render("You Win!", True, lightGreen)
@@ -113,20 +114,20 @@ def checkGuess(turns, word, userGuess, window):
 
     # Change colors of guesses for previous guess
     for i in range(5):
-        renderList[i] = font.render(userGuess[i], True, white)
-        pygame.draw.rect(window, guessColorCode[i], pygame.Rect(160 + spacing, 50 + (turns * 80), 50, 50))
-        window.blit(renderList[i], (176.5 + spacing, 62 + (turns * 80)))
+        renderList[i] = mediumFont.render(userGuess[i], True, white)
+        pygame.draw.rect(window, guessColorCode[i], pygame.Rect(160 + spacing, 50 + (turns * 80), 70, 70))
+        window.blit(renderList[i], (180 + spacing, 65 + (turns * 80)))
         spacing += 80
 
     for i in range(10):
-        pygame.draw.rect(window, keyboardTopColorCode[i], pygame.Rect(55 + (i * 60), 600, 50, 50))
+        pygame.draw.rect(window, keyboardTopColorCode[i], pygame.Rect(55 + (i * 60), 600, 50, 60))
         window.blit(font.render(topRow[i], True, white), (70 + (i * 60), 612))
     for i in range(9):
-        pygame.draw.rect(window, keyboardMiddleColorCode[i], pygame.Rect(85 + (i * 60), 660, 50, 50))
-        window.blit(font.render(middleRow[i], True, white), (100 + (i * 60), 672))
+        pygame.draw.rect(window, keyboardMiddleColorCode[i], pygame.Rect(85 + (i * 60), 670, 50, 60))
+        window.blit(font.render(middleRow[i], True, white), (100 + (i * 60), 682))
     for i in range(7):
-        pygame.draw.rect(window, keyboardBottomColorCode[i], pygame.Rect(145 + (i * 60), 720, 50, 50))
-        window.blit(font.render(bottomRow[i], True, white), (160 + (i * 60), 732))
+        pygame.draw.rect(window, keyboardBottomColorCode[i], pygame.Rect(145 + (i * 60), 740, 50, 60))
+        window.blit(font.render(bottomRow[i], True, white), (160 + (i * 60), 752))
 
     if guessColorCode == [green, green, green, green, green]:
         return True
@@ -153,7 +154,7 @@ def main():
     # Draw grid of empty boxes
     for i in range(5):
         for j in range(6):
-            pygame.draw.rect(window, grey, pygame.Rect(160 + (i * 80), 50 + (j * 80), 50, 50), 2)
+            pygame.draw.rect(window, grey, pygame.Rect(160 + (i * 80), 50 + (j * 80), 70, 70), 2)
 
     global keyboardTopColorCode, keyboardMiddleColorCode, keyboardBottomColorCode
 
@@ -163,14 +164,14 @@ def main():
 
     # Draw grid of keyboard
     for i in range(10):
-        pygame.draw.rect(window, lightGrey, pygame.Rect(55 + (i * 60), 600, 50, 50))
-        window.blit(font.render(topRow[i], True, white), (70 + (i * 60), 612))
+        pygame.draw.rect(window, lightGrey, pygame.Rect(55 + (i * 60), 600, 50, 60))
+        window.blit(font.render(topRow[i], True, white), (70 + (i * 60), 615))
     for i in range(9):
-        pygame.draw.rect(window, lightGrey, pygame.Rect(85 + (i * 60), 660, 50, 50))
-        window.blit(font.render(middleRow[i], True, white), (100 + (i * 60), 672))
+        pygame.draw.rect(window, lightGrey, pygame.Rect(85 + (i * 60), 670, 50, 60))
+        window.blit(font.render(middleRow[i], True, white), (100 + (i * 60), 685))
     for i in range(7):
-        pygame.draw.rect(window, lightGrey, pygame.Rect(145 + (i * 60), 720, 50, 50))
-        window.blit(font.render(bottomRow[i], True, white), (160 + (i * 60), 732))
+        pygame.draw.rect(window, lightGrey, pygame.Rect(145 + (i * 60), 740, 50, 60))
+        window.blit(font.render(bottomRow[i], True, white), (160 + (i * 60), 755))
     
     pygame.display.set_caption("Wordle!")
 
@@ -215,12 +216,12 @@ def main():
 
         # Reset input boxes
         for i in range(5):
-            pygame.draw.rect(window, black, pygame.Rect(162 + (i * 80), 52 + (turns * 80), 46, 46))
+            pygame.draw.rect(window, black, pygame.Rect(162 + (i * 80), 52 + (turns * 80), 66, 66))
 
         # Types user input into boxes
         for i in range(len(userGuess)):
-            renderList[i] = font.render(userGuess[i], True, white)
-            window.blit(renderList[i], (176.5 + spacing, 62 + (turns * 80)))
+            renderList[i] = mediumFont.render(userGuess[i], True, white)
+            window.blit(renderList[i], (180 + spacing, 65 + (turns * 80)))
             spacing += 80
 
         if win == True:
@@ -247,7 +248,5 @@ def main():
 main()
 
 # TODO:
-# Update colors to match actual wordle
 # Get way to see/copy results
-# Make 6x5 grid closer together with bigger boxes/bigger text
 # Make UI look better after win/loss
