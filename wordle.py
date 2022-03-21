@@ -4,12 +4,12 @@ from pygame.locals import *
 pygame.init()
 
 white = (255,255,255)
-yellow = (202,180,92)
-green = (108,172,100)
+yellow = (181,159,59)
+green = (83,141,78)
 red = (255,0,0)
-lightGrey = (160,160,160)
-grey = (62,62,62)
-black = (0,0,0)
+lightGrey = (129,131,132)
+grey = (58,58,60)
+black = (18,18,19)
 lightGreen = (153,255,204)
 
 font = pygame.font.SysFont("Helvetica neue", 40)
