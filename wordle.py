@@ -129,9 +129,6 @@ def checkGuess(turns, word, userGuess, window):
         window.blit(font.render(bottomRow[i], True, white), (160 + (i * 60), 732))
 
     if guessColorCode == [green, green, green, green, green]:
-        keyboardTopColorCode = [lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey]
-        keyboardMiddleColorCode = [lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey]
-        keyboardBottomColorCode = [lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey]
         return True
 
 def main():
@@ -141,7 +138,7 @@ def main():
         wordList[i] = wordList[i][:-1]
 
     word = wordList[random.randint(0, len(wordList) - 1)].upper()
-
+    
     height = 900
     width = 700
 
@@ -157,6 +154,8 @@ def main():
     for i in range(5):
         for j in range(6):
             pygame.draw.rect(window, grey, pygame.Rect(160 + (i * 80), 50 + (j * 80), 50, 50), 2)
+
+    global keyboardTopColorCode, keyboardMiddleColorCode, keyboardBottomColorCode
 
     topRow = "QWERTYUIOP"
     middleRow = "ASDFGHJKL"
@@ -202,7 +201,7 @@ def main():
                     guess += event.unicode.upper()
 
                 if event.key == pygame.K_RETURN and len(guess) == 5:
-                    if guess.lower() not in words.words():
+                    if guess.lower() not in words.words() and guess.lower() not in wordList:
                         window.blit(font.render("Word not in list", True, red), (240, 10))
                     else:
                         win = checkGuess(turns, word, guess, window)
@@ -229,12 +228,18 @@ def main():
             window.blit(youWin, (225, 200))
             window.blit(font.render(f"The word was: {word.strip()}", True, white), (200, 275))
             window.blit(playAgain, (190, 325))
+            keyboardTopColorCode = [lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey]
+            keyboardMiddleColorCode = [lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey]
+            keyboardBottomColorCode = [lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey]
 
         if turns == 6 and win != True:
             window.fill(black)
             window.blit(youLose, (220, 200))
             window.blit(font.render(f"The word was: {word.strip()}", True, white), (200, 275))
             window.blit(playAgain, (190, 325))
+            keyboardTopColorCode = [lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey]
+            keyboardMiddleColorCode = [lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey]
+            keyboardBottomColorCode = [lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey,lightGrey]
         
         pygame.display.update()
         clock.tick(FPS)
